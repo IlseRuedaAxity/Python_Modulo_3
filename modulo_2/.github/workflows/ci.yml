@@ -1,0 +1,45 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: |
+          pip install --upgrade pip
+          pip install fastapi uvicorn typer httpx pytest ruff mypy
+
+      - name: Lint con ruff
+        run: ruff check orders/ tests/
+
+      - name: Type-check con mypy
+        run: mypy orders/
+
+      - name: Correr tests
+        run: pytest tests/ -v
+
+      - name: Build wheel
+        run: |
+          pip install build
+          python -m build
+
+      - name: Build Docker image
+        run: docker build -t orders:${{ github.sha }} .
+
+      - name: Verificar imagen Docker
+        run: docker images orders
