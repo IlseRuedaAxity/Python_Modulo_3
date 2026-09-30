@@ -1,7 +1,9 @@
+from typing import Self
 from uuid import UUID
+
+from orders.application.unit_of_work import UnitOfWork
 from orders.domain.entities import Order
 from orders.domain.repositories import OrderRepository
-from orders.application.unit_of_work import UnitOfWork
 
 
 class InMemoryOrderRepository(OrderRepository):
@@ -26,7 +28,7 @@ class InMemoryUnitOfWork(UnitOfWork):
         self.orders = InMemoryOrderRepository()
         self._committed = False
 
-    def __enter__(self) -> "InMemoryUnitOfWork":
+    def __enter__(self) -> Self:
         return self
 
     def __exit__(self, *args) -> None:

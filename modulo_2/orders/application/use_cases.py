@@ -1,9 +1,10 @@
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
+
+from orders.application.presenter import OrderPresenter
+from orders.application.unit_of_work import UnitOfWork
 from orders.domain.entities import Order, OrderItem
 from orders.domain.events import OrderCreated
-from orders.application.unit_of_work import UnitOfWork
-from orders.application.presenter import OrderPresenter
-from typing import Callable
 
 
 class CreateOrder:
@@ -33,7 +34,7 @@ class CreateOrder:
             order_id=order.id,
             customer_name=order.customer_name,
             total=order.total,
-            occurred_at=datetime.now(timezone.utc),
+            occurred_at=datetime.now(UTC),
         )
         self.event_handler(event)
 

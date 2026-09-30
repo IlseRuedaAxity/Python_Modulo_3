@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from orders.application.use_cases import CreateOrder, ListOrders, DeleteOrder
-from orders.infrastructure.repository_memory import InMemoryUnitOfWork
-from orders.infrastructure.event_handler import handle_order_created
 
+from orders.application.use_cases import CreateOrder, DeleteOrder, ListOrders
+from orders.infrastructure.event_handler import handle_order_created
+from orders.infrastructure.repository_memory import InMemoryUnitOfWork
 
 app = FastAPI(
     title="Orders API",

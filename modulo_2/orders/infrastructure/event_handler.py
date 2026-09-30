@@ -7,7 +7,7 @@ def handle_order_created(event: OrderCreated) -> None:
     En producción aquí podrías enviar un email,
     notificar a un broker, etc.
     """
-    print(f"[EVENT] OrderCreated disparado!")
+    print("[EVENT] OrderCreated disparado!")
     print(f"  → Order ID  : {event.order_id}")
     print(f"  → Cliente   : {event.customer_name}")
     print(f"  → Total     : ${event.total:.2f}")

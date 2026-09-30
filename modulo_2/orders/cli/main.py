@@ -1,6 +1,6 @@
-import typer
+
 import httpx
-import json
+import typer
 
 app = typer.Typer(help="CLI para gestionar Orders")
 

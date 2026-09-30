@@ -1,5 +1,6 @@
 import pytest
-from orders.application.use_cases import CreateOrder, ListOrders, DeleteOrder
+
+from orders.application.use_cases import CreateOrder, DeleteOrder, ListOrders
 from orders.infrastructure.repository_memory import InMemoryUnitOfWork
 
 
