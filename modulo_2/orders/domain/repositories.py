@@ -15,3 +15,6 @@ class OrderRepository(ABC):
 
     @abstractmethod
     def list_all(self) -> list[Order]: ...
+
+    @abstractmethod
+    def delete(self, order_id: UUID) -> None: ...
