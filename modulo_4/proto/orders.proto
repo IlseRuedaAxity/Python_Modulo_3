@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package orders;
+
+// ── Mensajes ──────────────────────────────────────────────
+
+message OrderItem {
+  string product_id = 1;
+  int32  quantity   = 2;
+  float  price      = 3;
+}
+
+message CreateOrderRequest {
+  string customer_id = 1;
+  repeated OrderItem items = 2;
+}
+
+message OrderResponse {
+  string order_id   = 1;
+  string customer_id = 2;
+  string status     = 3;
+  float  total      = 4;
+}
+
+message GetOrderRequest {
+  string order_id = 1;
+}
+
+message OrderListResponse {
+  repeated OrderResponse orders = 1;
+}
+
+// ── Servicio gRPC ─────────────────────────────────────────
+
+service OrderService {
+  rpc CreateOrder (CreateOrderRequest) returns (OrderResponse);
+  rpc GetOrder    (GetOrderRequest)    returns (OrderResponse);
+  rpc ListOrders  (GetOrderRequest)    returns (OrderListResponse);
+}
