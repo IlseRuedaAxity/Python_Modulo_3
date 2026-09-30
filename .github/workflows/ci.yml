@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout código
+      - name: Checkout codigo
         uses: actions/checkout@v4
 
       - name: Configurar Python
@@ -25,21 +25,21 @@ jobs:
           pip install fastapi uvicorn typer httpx pytest ruff mypy
 
       - name: Lint con ruff
-        run: ruff check orders/ tests/
+        run: ruff check modulo_2/orders/ modulo_2/tests/
 
       - name: Type-check con mypy
-        run: mypy orders/
+        run: mypy modulo_2/orders/
 
       - name: Correr tests
+        working-directory: modulo_2
         run: pytest tests/ -v
 
       - name: Build wheel
+        working-directory: modulo_2
         run: |
           pip install build
           python -m build
 
       - name: Build Docker image
+        working-directory: modulo_2
         run: docker build -t orders:${{ github.sha }} .
-
-      - name: Verificar imagen Docker
-        run: docker images orders
